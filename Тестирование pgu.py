@@ -5,8 +5,13 @@ app.connect(gui.QUIT, app.quit, None)
 
 c = gui.Table(width=200, height=120)
 
-e = gui.Button("Quit")
-e.connect(gui.CLICK, app.quit, None)
+
+def gg():
+    print('hello')
+
+
+e = gui.Button("hello")
+e.connect(gui.CLICK, gg(), '')
 c.add(e, 0, 0)
 
 app.run(c)

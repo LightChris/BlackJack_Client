@@ -3,29 +3,37 @@ import sys
 import os
 from pgu import gui
 from pygame.locals import *
+from Deck import *
 
 RESX = 800
 RESY = 600
 FPS = 40
-
-
-def but_send():
-    print("hello")
+CLICKED = 0
 
 
 class GuiWindow:
     def __init__(self):
         self.app = app = gui.App()
         button_hit = gui.Button('Hit')
-        # button_hit.connect(gui.CLICK, but_send())
+        button_hit.connect(gui.CLICK, self.hit_click, '')
         button_stand = gui.Button('Stand')
-        button_double = gui.Button('Double')
+        # button_double = gui.Button('Double')
         self.rect = pygame.Rect((300, 550, 175, 25))
         table = gui.Table()
         table.td(button_hit)
         table.td(button_stand)
-        table.td(button_double)
+        # table.td(button_double)
         app.init(widget=table, screen=screen, area=self.rect)
+
+    def hit_click(self, but_event):
+        # CLICKED += 1
+        ranks = "23456789tjqka"
+        suits = "dchs"
+        cards = [(s, r) for r in ranks for s in suits]
+        random.shuffle(cards)
+        card_name = str(cards[-1][0] + cards[-1][1] + ".png")
+        print(card_name)
+        self.card_name = load_image("images/cards", card_name, 1)
 
     def event(self, event):
         self.app.event(event)
@@ -39,6 +47,8 @@ class GuiWindow:
         pygame.draw.rect(screen, (200, 200, 0), player1_rect, 2)
         pygame.draw.rect(screen, (200, 200, 0), player2_rect, 2)
         pygame.draw.rect(screen, (200, 200, 0), player3_rect, 2)
+        if CLICKED == 1:
+            screen.blit(self.card_name, (80, 350))
         screen.blit(card_back, (600, 50))
         screen.blit(card_ca, (340, 110))
         screen.blit(card_back, (360, 110))
@@ -56,9 +66,8 @@ def load_image(path, name, alpha_channel):
     return image
 
 
-# pygame.init()
 screen = pygame.display.set_mode((RESX, RESY), 0, 32)
-pygame.display.set_caption("BlackJack v0.0.1")
+pygame.display.set_caption("BlackJack v0.1.0a")
 window = GuiWindow()
 bgColor = (0, 100, 0)
 screen.fill(bgColor)
