@@ -8,12 +8,30 @@ from Deck import *
 RESX = 800
 RESY = 600
 FPS = 40
-CLICKED = 0
+
+
+class Player:
+    def __init__(self, x, y):
+        button = ...
+        button_connect = ...
+        pass
+
+    def paint(self, screen):
+        pass
 
 
 class GuiWindow:
+    """
+
+    """
     def __init__(self):
         self.app = app = gui.App()
+        # self.card_name = ""
+        self.players = [Player(80, 360), Player(340, 360), Player(590, 360)]
+        self.clicked_button = 0  # False
+        self.player1_card_x, self.player1_card_y = 80, 360
+        self.player2_card_x, self.player2_card_y = 340, 360
+        self.player3_card_x, self.player3_card_y = 590, 360
         button_hit = gui.Button('Hit')
         button_hit.connect(gui.CLICK, self.hit_click, '')
         button_stand = gui.Button('Stand')
@@ -26,7 +44,7 @@ class GuiWindow:
         app.init(widget=table, screen=screen, area=self.rect)
 
     def hit_click(self, but_event):
-        # CLICKED += 1
+        self.clicked_button += 1
         ranks = "23456789tjqka"
         suits = "dchs"
         cards = [(s, r) for r in ranks for s in suits]
@@ -47,8 +65,8 @@ class GuiWindow:
         pygame.draw.rect(screen, (200, 200, 0), player1_rect, 2)
         pygame.draw.rect(screen, (200, 200, 0), player2_rect, 2)
         pygame.draw.rect(screen, (200, 200, 0), player3_rect, 2)
-        if CLICKED == 1:
-            screen.blit(self.card_name, (80, 350))
+        if self.clicked_button >= 1:
+            screen.blit(self.card_name, (self.player1_card_x, self.player1_card_y))
         screen.blit(card_back, (600, 50))
         screen.blit(card_ca, (340, 110))
         screen.blit(card_back, (360, 110))
