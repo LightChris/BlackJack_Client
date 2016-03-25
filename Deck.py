@@ -38,8 +38,8 @@ class Deck(object):
         # перетасовываем колоду. Не забудьте импортировать функцию shuffle из модуля random
         random.shuffle(self.cards)
         self.card_name = str(self.cards[-1][0] + self.cards[-1][1] + ".png")
-        print(self.card_name)
 
-    # def deal_card(self):
-    #     """ Функция сдачи карты """
-    #     return self.cards.pop()
+    def deal_card(self):
+        """ Функция сдачи карты """
+        # return self.cards.pop()
+        return self.card_name

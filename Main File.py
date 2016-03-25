@@ -11,13 +11,23 @@ FPS = 40
 
 
 class Player:
-    def __init__(self, x, y):
-        button = ...
-        button_connect = ...
-        pass
+    def __init__(self):
+        self.player_1 = False  # }
+        self.player_2 = False  # } - zanyato li pole
+        self.player_3 = False  # }
+        self.app = app = gui.App()
+        # button_connect = gui.Button()
+        # button_connect.connect()
+        self.rect = pygame.Rect((350, 250, 150, 200))
+        table = gui.Table()
+        # table.td(button_connect)
+        app.init(widget=table, screen=screen, area=self.rect)
 
     def paint(self, screen):
         pass
+
+    def event(self, event):
+        self.app.event(event)
 
 
 class GuiWindow:
@@ -27,20 +37,18 @@ class GuiWindow:
     def __init__(self):
         self.app = app = gui.App()
         # self.card_name = ""
-        self.players = [Player(80, 360), Player(340, 360), Player(590, 360)]
+        # self.players = [Player(80, 360), Player(340, 360), Player(590, 360)]
         self.clicked_button = 0  # False
-        self.player1_card_x, self.player1_card_y = 80, 360
-        self.player2_card_x, self.player2_card_y = 340, 360
-        self.player3_card_x, self.player3_card_y = 590, 360
+        self.player1_card_x, self.player1_card_y = 70, 360
+        # self.player2_card_x, self.player2_card_y = 340, 360
+        # self.player3_card_x, self.player3_card_y = 590, 360
         button_hit = gui.Button('Hit')
         button_hit.connect(gui.CLICK, self.hit_click, '')
         button_stand = gui.Button('Stand')
-        # button_double = gui.Button('Double')
         self.rect = pygame.Rect((300, 550, 175, 25))
         table = gui.Table()
         table.td(button_hit)
         table.td(button_stand)
-        # table.td(button_double)
         app.init(widget=table, screen=screen, area=self.rect)
 
     def hit_click(self, but_event):
@@ -87,6 +95,7 @@ def load_image(path, name, alpha_channel):
 screen = pygame.display.set_mode((RESX, RESY), 0, 32)
 pygame.display.set_caption("BlackJack v0.1.0a")
 window = GuiWindow()
+players = Player()
 bgColor = (0, 100, 0)
 screen.fill(bgColor)
 
@@ -124,9 +133,11 @@ while mainLoop:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE or event.type == pygame.QUIT:
             sys.exit()
         window.event(event)
+        players.event(event)
     dt = clock.tick(FPS)
     screen.fill((0, 100, 0))
     window.paint()
+    # players.paint()
     pygame.display.flip()
 
 pygame.quit()
