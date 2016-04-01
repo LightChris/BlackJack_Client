@@ -4,6 +4,7 @@ import os
 from pgu import gui
 from pygame.locals import *
 from Deck import *
+from Hand import *
 
 RESX = 800
 RESY = 600
@@ -13,14 +14,14 @@ FPS = 40
 class Player:
     def __init__(self):
         self.player_1 = False  # }
-        self.player_2 = False  # } - zanyato li pole
+        self.player_2 = False  # } - Определяет занято ли поле.
         self.player_3 = False  # }
         self.app = app = gui.App()
-        # button_connect = gui.Button()
+        button_connect = gui.Button()
         # button_connect.connect()
         self.rect = pygame.Rect((350, 250, 150, 200))
         table = gui.Table()
-        # table.td(button_connect)
+        table.td(button_connect)
         app.init(widget=table, screen=screen, area=self.rect)
 
     def paint(self, screen):
@@ -35,30 +36,33 @@ class GuiWindow:
 
     """
     def __init__(self):
+        self.clicked_button = False
         self.app = app = gui.App()
-        # self.card_name = ""
+        self.card_name = ""
         # self.players = [Player(80, 360), Player(340, 360), Player(590, 360)]
-        self.clicked_button = 0  # False
         self.player1_card_x, self.player1_card_y = 70, 360
         # self.player2_card_x, self.player2_card_y = 340, 360
         # self.player3_card_x, self.player3_card_y = 590, 360
+        # button_connect = gui.Button('Connect')
+        # button_connect.connect(gui.CLICK, self.con_to_serv, '')
         button_hit = gui.Button('Hit')
         button_hit.connect(gui.CLICK, self.hit_click, '')
         button_stand = gui.Button('Stand')
         self.rect = pygame.Rect((300, 550, 175, 25))
         table = gui.Table()
+        # table.td(button_connect)
         table.td(button_hit)
         table.td(button_stand)
         app.init(widget=table, screen=screen, area=self.rect)
 
+    def con_to_serv(self, but_event):
+        print("Connect")
+
     def hit_click(self, but_event):
-        self.clicked_button += 1
-        ranks = "23456789tjqka"
-        suits = "dchs"
-        cards = [(s, r) for r in ranks for s in suits]
-        random.shuffle(cards)
-        card_name = str(cards[-1][0] + cards[-1][1] + ".png")
+        self.clicked_button = True
+        card_name = Deck.deal_card(deck)
         print(card_name)
+        hand.card_list.append(card_name)
         self.card_name = load_image("images/cards", card_name, 1)
 
     def event(self, event):
@@ -75,6 +79,9 @@ class GuiWindow:
         pygame.draw.rect(screen, (200, 200, 0), player3_rect, 2)
         if self.clicked_button >= 1:
             screen.blit(self.card_name, (self.player1_card_x, self.player1_card_y))
+        # for el in hand.card_list:
+        #     self.card_name = load_image("images/cards", el, 1)
+        #     screen.blit(self.card_name, (self.player1_card_x, self.player1_card_y))
         screen.blit(card_back, (600, 50))
         screen.blit(card_ca, (340, 110))
         screen.blit(card_back, (360, 110))
@@ -95,7 +102,8 @@ def load_image(path, name, alpha_channel):
 screen = pygame.display.set_mode((RESX, RESY), 0, 32)
 pygame.display.set_caption("BlackJack v0.1.0a")
 window = GuiWindow()
-players = Player()
+deck = Deck()
+hand = Hand()
 bgColor = (0, 100, 0)
 screen.fill(bgColor)
 
@@ -133,11 +141,9 @@ while mainLoop:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE or event.type == pygame.QUIT:
             sys.exit()
         window.event(event)
-        players.event(event)
     dt = clock.tick(FPS)
     screen.fill((0, 100, 0))
     window.paint()
-    # players.paint()
     pygame.display.flip()
 
 pygame.quit()

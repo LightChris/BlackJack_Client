@@ -43,3 +43,4 @@ class Deck(object):
         """ Функция сдачи карты """
         # return self.cards.pop()
         return self.card_name
+
