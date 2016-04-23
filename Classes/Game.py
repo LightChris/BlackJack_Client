@@ -1,6 +1,7 @@
 import os
 import sys
 import pygame
+from pgu import gui
 from pygame import *
 from settings import *
 from Classes.Dealer import *
@@ -17,6 +18,17 @@ class Game:
         self.run = True
         self.deck_image = load_image(path=os.path.join("images", "cards"), name="back.png")
         self.deck_pos = (600, 50)
+
+        # Кнопки gui:
+        self.app = app = gui.App()
+        self.rect = pygame.Rect((300, 550, 175, 25))
+        connect_button = gui.Button("Connect")
+        # connect_button.connect()
+        table = gui.Table()
+        table.td(connect_button)
+
+
+
 
         # Колода
         self.deck = Deck()
