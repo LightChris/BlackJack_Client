@@ -62,7 +62,7 @@ class GuiWindow:
         self.clicked_button = True
         card_name = Deck.deal_card(deck)
         print(card_name)
-        hand.card_list.append(card_name)
+        # hand.card_list.append(card_name)
         self.card_name = load_image("images/cards", card_name, 1)
 
     def event(self, event):
@@ -77,7 +77,7 @@ class GuiWindow:
         pygame.draw.rect(screen, (200, 200, 0), player1_rect, 2)
         pygame.draw.rect(screen, (200, 200, 0), player2_rect, 2)
         pygame.draw.rect(screen, (200, 200, 0), player3_rect, 2)
-        if self.clicked_button >= 1:
+        if self.clicked_button == True:
             screen.blit(self.card_name, (self.player1_card_x, self.player1_card_y))
         # for el in hand.card_list:
         #     self.card_name = load_image("images/cards", el, 1)
