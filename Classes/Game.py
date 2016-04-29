@@ -10,23 +10,30 @@ from utilities import load_image
 from Classes.Server import Server
 
 
+def but_connect(ws):
+    print("Connect")
+    ws.connect()
+
+
 class Game:
-    def __init__(self):
+    def __init__(self, ws):
         pygame.init()
         self.screen = pygame.display.set_mode((RESX, RESY), 0, 32)
         pygame.display.set_caption("BlackJack v0.1.0a")
         self.run = True
         self.deck_image = load_image(path=os.path.join("images", "cards"), name="back.png")
         self.deck_pos = (600, 50)
+        self.ws = ws
+        # self.ws.connect()
 
         # Кнопки gui:
         self.app = app = gui.App()
         self.rect = pygame.Rect((300, 550, 175, 25))
         connect_button = gui.Button("Connect")
-        # connect_button.connect()
+        connect_button.connect(gui.CLICK, but_connect(self.ws), '')
         table = gui.Table()
         table.td(connect_button)
-
+        app.init(widget=table, screen=self.screen, area=self.rect)
 
 
 
@@ -37,6 +44,7 @@ class Game:
         self.dealer = Dealer((250, 110), self.deck)
 
         # Список игроков
+
         # self.players = [Player((25, 400), self.deck), Player((275, 400), self.deck), Player((525, 400), self.deck)]
         self.players_position = ((25, 400), (275, 400), (525, 400))
         self.players = []
@@ -45,9 +53,9 @@ class Game:
         self.add_player(3)
         self.server = Server()
         # TEMP
-        for player in self.players:
-            player.add_cards()
-            player.add_cards()
+        # for player in self.players:
+        #     player.add_cards()
+        #     player.add_cards()
         self.dealer.add_cards()
         self.dealer.add_cards()
 
@@ -57,6 +65,7 @@ class Game:
 
     def render(self, screen):
         screen.blit(self.deck_image, self.deck_pos)
+        self.app.paint()
 
     def mainloop(self):
         while self.run:

@@ -72,7 +72,7 @@ class GuiWindow:
         screen.blit(fontPlayer1, (x1, y1))
         screen.blit(fontPlayer2, (x2, y2))
         screen.blit(fontPlayer3, (x3, y3))
-        pygame.draw.rect(screen, (0, 100, 0), self.rect, 2)
+        # pygame.draw.rect(screen, (0, 100, 0), self.rect, 2)
         pygame.draw.rect(screen, (0, 120, 0), diler_rect, 2)
         pygame.draw.rect(screen, (200, 200, 0), player1_rect, 2)
         pygame.draw.rect(screen, (200, 200, 0), player2_rect, 2)

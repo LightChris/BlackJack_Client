@@ -1,4 +1,6 @@
 from Classes.Game import Game
+from Classes.Server import Server
 
-game = Game()
+server = Server()
+game = Game(server)
 game.mainloop()

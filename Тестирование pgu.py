@@ -1,17 +1,32 @@
-from pgu import gui
+# from pgu import gui
+#
+# app = gui.Desktop()
+# app.connect(gui.QUIT, app.quit, None)
+#
+# c = gui.Table(width=200, height=120)
+#
+#
+# def gg():
+#     print('hello')
+#
+#
+# e = gui.Button("hello")
+# e.connect(gui.CLICK, gg(), '')
+# c.add(e, 0, 0)
+#
+# app.run(c)
 
-app = gui.Desktop()
-app.connect(gui.QUIT, app.quit, None)
 
-c = gui.Table(width=200, height=120)
+class A:
+    def test(self):
+        return "Hello"
 
+    @staticmethod
+    def static():
+        return "World"
 
-def gg():
-    print('hello')
-
-
-e = gui.Button("hello")
-e.connect(gui.CLICK, gg(), '')
-c.add(e, 0, 0)
-
-app.run(c)
+a = A()
+print(a.test())
+print(a.static())
+print(A.static())
+# test(a)
