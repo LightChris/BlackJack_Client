@@ -24,11 +24,11 @@ class Server:
         print("data = ", data)
         # if data.get("type") == "error":
         #     Server.on_errors(data)
-        # custom_event = pygame.event.Event(WS_MESSAGE, data=data, test=0)
-        # pygame.event.post(custom_event)
+        custom_event = pygame.event.Event(WS_MESSAGE, data=data, test=0)
+        pygame.event.post(custom_event)
 
     @staticmethod
     def on_errors(cls, data):
         print("error = ", data)
-        # custom_event = pygame.event.Event(WS_ERROR, error=data)
-        # pygame.event.post(custom_event)
+        custom_event = pygame.event.Event(WS_ERROR, error=data)
+        pygame.event.post(custom_event)

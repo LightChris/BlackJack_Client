@@ -13,9 +13,9 @@ sys.path.insert(0, "..")
 
 from pgu import gui
 
-from gui6 import AboutDialog
-from gui7 import ColorDialog
-from gui8 import NewDialog
+from examples.gui6 import AboutDialog
+from examples.gui7 import ColorDialog
+from examples.gui8 import NewDialog
 
 
 class HelpDialog(gui.Dialog):
